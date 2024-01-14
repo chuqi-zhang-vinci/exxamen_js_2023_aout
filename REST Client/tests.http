@@ -1,0 +1,41 @@
+### 2.1) get a new game without filtering the level
+@baseUrl = http://localhost:3000
+
+# @name manager
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "username":"manager",
+    "password":"manager"
+}
+
+### 
+GET {{baseUrl}}/games/start
+Authorization: {{manager.response.body.token}}
+
+
+### 2.1) get a new game for a specific level
+GET {{baseUrl}}/games/start?level=medium
+Authorization: {{manager.response.body.token}}
+
+
+### 2.2) create a new game result for a user
+#### 2.2.a) create the game result by providing a correct score for a user
+POST {{baseUrl}}/games
+Content-Type: application/json
+Authorization: {{manager.response.body.token}}
+
+{
+    "score": 3,
+    "username": "king"
+}
+#### 2.2.b) try to create the game result by provinding a wrong score for a userPOST {{baseUrl}}/games
+POST {{baseUrl}}/games
+Content-Type: application/json
+Authorization: {{manager.response.body.token}}
+
+{
+    "score": 2,
+    "username": "queen"
+}
